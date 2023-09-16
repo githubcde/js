@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Digital Clock</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- React & ReactDOM Libraries -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Babel for JSX transformation -->
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+        class DigitalClock extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    currentTime: new Date().toLocaleTimeString()
+                };
+            }
+
+            componentDidMount() {
+                this.intervalID = setInterval(() => {
+                    this.updateClock();
+                }, 1000);
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.intervalID);
+            }
+
+            updateClock() {
+                this.setState({
+                    currentTime: new Date().toLocaleTimeString()
+                });
+            }
+
+            render() {
+                return <h1>{this.state.currentTime}</h1>;
+            }
+        }
+
+        ReactDOM.render(<DigitalClock />, document.getElementById('root'));
+    </script>
+</body>
+</html>
